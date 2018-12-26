@@ -26,8 +26,11 @@ catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme darkblue
 endtry
 
-"spell checker, activated with 'WP'
-func! WordProcessorMode()
+"hide window on close ... or at least try to
+set hidden
+
+"spell checker, activated with 'WP' honestly useless
+func! WordProcessorMode() 
     setlocal textwidth=100
     setlocal smartindent
     setlocal spell spelllang=en_gb
@@ -35,14 +38,28 @@ func! WordProcessorMode()
 endfu
 com! WP call WordProcessorMode()
 
+"keep cursor a certain distance from top/bottom
+set scrolloff=5
+
+"remappping modes:
+":map - alllll
+":nmap - normal mode maps
+":imap - insert mode maps
+":vmap - visual and select mode maps
+":smap - select mode maps
+":xmap - visual mode maps
+":cmap - command line mode maps
+":omap - operator pending mode maps
+
 "remapping
-inoremap ii <esc>   
+inoremap ii <esc>
 inoremap II <esc>ZZ
-"jk in insert goes to normal, can't use esc
+"ii goes to normal, capitals exit
 nnoremap ; :
 "no need to shift in normal mode to go command line
 cnoremap q1 q!
-"one less shift
+cnoremap write w !sudo tee %
+"one less shift, what to do if forget to use sudo
 
 "disable arrow keys in normal mode
 nnoremap <Up> <Nop>

@@ -1,3 +1,20 @@
+"in order to use Vundle, vim plugin manager
+set nocompatible
+filetype off
+
+"set runtime path to inclue Vundle
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+"let Vundle manage Vundle
+Plugin 'VundleVim/Vundle.vim'
+
+"input all necessary plugins here
+Plugin 'Valloric/YouCompleteMe'
+"end input
+call vundle#end()
+filetype plugin indent on
+
 "tabbing stuff
 set expandtab
 set tabstop=4
@@ -21,10 +38,15 @@ set hlsearch
 syntax enable                   "Use syntax highlighting                        
 set background=dark             "Use dark color scheme                          
 try
+    let g:solarized_termtrans = 1 "gets rid of ugly grey background
     colorscheme solarized
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme darkblue
+    hi Comment ctermfg=4
 endtry
+
+"change highlighting of comments to blue
+"hi Comment ctermfg=4
 
 "hide window on close ... or at least try to
 set hidden
@@ -52,14 +74,14 @@ set scrolloff=5
 ":omap - operator pending mode maps
 
 "remapping
+"ii goes to normal, capitals exit
 inoremap ii <esc>
 inoremap II <esc>ZZ
-"ii goes to normal, capitals exit
-nnoremap ; :
 "no need to shift in normal mode to go command line
+nnoremap ; :
+"one less shift, what to do if forget to use sudo
 cnoremap q1 q!
 cnoremap write w !sudo tee %
-"one less shift, what to do if forget to use sudo
 
 "disable arrow keys in normal mode
 nnoremap <Up> <Nop>

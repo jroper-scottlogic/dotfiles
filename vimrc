@@ -8,12 +8,29 @@ call vundle#begin()
 
 "let Vundle manage Vundle
 Plugin 'VundleVim/Vundle.vim'
-
-"input all necessary plugins here
+"input all necessry plugins here
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/syntastic'
+Plugin 'bling/vim-airline'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'raimondi/delimitmate'
 "end input
 call vundle#end()
 filetype plugin indent on
+
+"sysntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 "tabbing stuff
 set expandtab
@@ -82,6 +99,7 @@ nnoremap ; :
 "one less shift, what to do if forget to use sudo
 cnoremap q1 q!
 cnoremap write w !sudo tee %
+cnoremap sr SyntasticReset
 
 "disable arrow keys in normal mode
 nnoremap <Up> <Nop>

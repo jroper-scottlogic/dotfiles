@@ -41,6 +41,9 @@ set autoindent
 set smartindent
 set textwidth=80
 
+"get rid of that annoying bell sound
+set belloff = all
+
 "give extra info
 set number
 set showcmd

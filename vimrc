@@ -1,37 +1,37 @@
-"in order to use Vundle, vim plugin manager
-set nocompatible
-filetype off
-
-"set runtime path to inclue Vundle
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-"let Vundle manage Vundle
-Plugin 'VundleVim/Vundle.vim'
-"input all necessry plugins here
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/syntastic'
-Plugin 'bling/vim-airline'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'raimondi/delimitmate'
-"end input
-call vundle#end()
-filetype plugin indent on
-
+""in order to use Vundle, vim plugin manager
+"set nocompatible
+"filetype off
+"
+""set runtime path to inclue Vundle
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+"
+""let Vundle manage Vundle
+"Plugin 'VundleVim/Vundle.vim'
+""input all necessry plugins here
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'tpope/vim-surround'
+"Plugin 'scrooloose/syntastic'
+"Plugin 'bling/vim-airline'
+"Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
+"Plugin 'easymotion/vim-easymotion'
+"Plugin 'nathanaelkane/vim-indent-guides'
+"Plugin 'raimondi/delimitmate'
+""end input
+"call vundle#end()
+"filetype plugin indent on
+"
 "sysntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"
 "tabbing stuff
 set expandtab
 set tabstop=4
@@ -42,7 +42,8 @@ set smartindent
 set textwidth=80
 
 "get rid of that annoying bell sound
-set belloff = all
+"set belloff = all
+set noerrorbells
 
 "give extra info
 set number

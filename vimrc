@@ -2,7 +2,7 @@
 "source ~/dotfiles/vimrc
 
 "remember cursor position, among other things
-source $VIMRUNTIME/vimrc_example.vim
+"source $VIMRUNTIME/vimrc_example.vim
 "makes sure the viminfo file is in the .vim dir
 set viminfo+=n~/.vim/viminfo 
 set viminfofile=~/.vim/viminfo
@@ -13,87 +13,99 @@ set nocompatible
 "allow more normal backspacing
 set backspace=indent,eol,start  
 
-"in order to use Vundle, vim plugin manager
-filetype off
+" When editing a file, always jump to the last known cursor position.
+autocmd BufReadPost *
+  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+  \ |   exe "normal! g`\""
+  \ | endif
 
-"if Vundle needs to be downloaded use the following
-"git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-"in order to download it
+call plug#begin()
+" The default plugin directory will be as follows:
+"   - Vim (Linux/macOS): '~/.vim/plugged'
+"   - Vim (Windows): '~/vimfiles/plugged'
+"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
+" You can specify a custom plugin directory by passing it as the argument
+"   - e.g. `call plug#begin('~/.vim/plugged')`
+"   - Avoid using standard Vim directory names like 'plugin'
 
-"set runtime path to inclue Vundle
-
-"for linux use this
-"set rtp+=~/.vim/bundle/Vundle.vim
-"for windows use this
-set shellslash
-set rtp+=~/vimfiles/bundle/Vundle.vim
-
-"allows nerdtree git functionality
-"set shell=sh
-
-call vundle#begin()
-
-"let Vundle manage Vundle
-Plugin 'VundleVim/Vundle.vim'
-"input all necessry plugins here
+" Make sure you use single quotes
 "ui
-Plugin 'bling/vim-airline'  "add some helpful info at bottom of screen
-Plugin 'nathanaelkane/vim-indent-guides'    "highlights indents for prettiness
-Plugin 'sainnhe/gruvbox-material'   "nice colourscheme
-Plugin 'sheerun/vim-polyglot'   "used by gruvbox-material helps with highlighting
-Plugin 'frazrepo/vim-rainbow'   "rainbow highlighting of parenthesis
-
-"git
-Plugin 'tpope/vim-fugitive' "Run git commands :G or :Git from command
-Plugin 'airblade/vim-gitgutter' "Show git changes in sign column
-
-"nerdtree
-Plugin 'preservim/nerdtree'   "display directory from vim
-Plugin 'Xuyuanp/nerdtree-git-plugin'    "adds git status flags to nerdtree
+Plug 'bling/vim-airline'  "add some helpful info at bottom of screen
+Plug 'nathanaelkane/vim-indent-guides'    "highlights indents for prettiness
+Plug 'sainnhe/gruvbox-material'   "nice colourscheme
+Plug 'sheerun/vim-polyglot'   "used by gruvbox-material helps with highlighting
+Plug 'kien/rainbow_parentheses.vim'   "rainbow highlighting of parenthesis
+Plug 'pangloss/vim-javascript'  "better syntax highlighting and improved indentation for js
+Plug 'othree/html5.vim'	"better syntax highlighting for html
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }	"show colours as they're written
 
 "functionality
-Plugin 'tpope/vim-surround' "quickly change surrounding parentheses cs, ds, ys
-Plugin 'valloric/youcompleteme' "tab to autocomplete
+Plug 'tpope/vim-surround' "quickly change surrounding parentheses cs, ds, ys
 
-"Plugin 'SirVer/ultisnips'   "quickly paste phrases
-"Plugin 'honza/vim-snippets' "ultisnips for python
-"Plugin 'easymotion/vim-easymotion'  "faster navigation, uses \\
+"git
+Plug 'tpope/vim-fugitive' "Run git commands :G or :Git from command
+Plug 'airblade/vim-gitgutter' "Show git changes in sign column
 
-Plugin 'dense-analysis/ale'   "linter
+"nerdtree
+Plug 'preservim/nerdtree'   "display directory from vim
+Plug 'Xuyuanp/nerdtree-git-plugin'    "adds git status flags to nerdtree
 
-call vundle#end()
-filetype plugin indent on
+"linting
+Plug 'dense-analysis/ale'   "linter
+call plug#end()
 
 "ALE
 let g:ale_sign_error = '*'
 let g:ale_sign_warning = '.'
 let g:ale_set_highlights = 0
+let g:ale_completion_enabled = 1
 
 let g:airline#extensions#ale#enabled = 1
 
-let g:ale_fixers = {'javascript': ['prettier']}
+let g:ale_fixers = {
+			\'javascript': ['eslint'],
+			\'html': ['prettier'],
+			\'*': ['remove_trailing_lines', 'trim_whitespace'],
+			\}
+
+let g:ale_linters = {
+			\'javasctipt': ['eslint'],
+			\}
 
 "NERDTree auto starts
 autocmd VimEnter * NERDTree | wincmd p
 " Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 
-            \&& exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+"autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 
+            "\&& exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
 let g:NERDTreeGitStatusIndicatorMapCustom = {
-                \ 'Modified'  :'✹',
-                \ 'Staged'    :'✚',
-                \ 'Untracked' :'✭',
-                \ 'Renamed'   :'➜',
-                \ 'Unmerged'  :'═',
-                \ 'Deleted'   :'✖',
-                \ 'Dirty'     :'✗',
-                \ 'Ignored'   :'☒',
-                \ 'Clean'     :'✔︎',
-                \ 'Unknown'   :'?',
-                \ }
+			\ 'Modified'  :'✹',
+			\ 'Staged'    :'✚',
+			\ 'Untracked' :'✭',
+			\ 'Renamed'   :'➜',
+			\ 'Unmerged'  :'═',
+			\ 'Deleted'   :'✖',
+			\ 'Dirty'     :'✗',
+			\ 'Ignored'   :'☒',
+			\ 'Clean'     :'✔︎',
+			\ 'Unknown'   :'?',
+			\ }
+
+"for rainbow parenthese
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+"for highlighting rgb/hex values
+let g:Hexokinase_highlighters = ['virtual', 'backgroundfull']
+let g:Hexokinase_optInPatterns = ['full_hex','rgb','rgba','hsl','hsla','colour_names']
+
+"suppress 'hit enter to continue' prompt when opening with vim
+"set shortmess=a
 
 "tabbing stuff
-set expandtab
+set noexpandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -148,11 +160,8 @@ colorscheme gruvbox-material
 let g:indent_guides_enable_on_vim_startup = 1
 "make indent colours nicer
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#665c54
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#a89984
-
-"rainbow parenthesis
-let g:rainbow_active = 1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#300000
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#99AB89
 
 "hide window on close ... or at least try to
 set hidden
@@ -187,6 +196,8 @@ cmap ntt NERDTree
 imap ii <esc>l
 inoremap II <esc>ZZ
 
+"ZA writes current window and attemps to close all others
+nnoremap ZA :only<CR>:wq<CR>
 "no need to shift in normal mode to go command line
 nnoremap ; :
 nnoremap : ;

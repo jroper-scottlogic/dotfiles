@@ -1,0 +1,7 @@
+--keymap.set takes {mode}, {lhs}, {rhs}, {opts}
+--modes are normal 'n'
+--visual 'v', visual line 'V', visual block 'ctrl Q' *ctrl V in unix, Q in windows* 
+--select 'gh' *not sure of use*
+--insert 'i'
+--replace 'r'
+--command 'c'
